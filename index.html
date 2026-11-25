@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python alıştırmaları: 6 problem, adım adım</title>
+<meta name="description" content="Asal çarpan, permütasyon, liste düzleştirme, ortalama ve zaman farkı problemleri için çözümlü Python örnekleri.">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <button id="menu-btn" class="menu-btn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="sidebar">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="topbar-title">Python alıştırmaları</span>
+</header>
+<div id="scrim" class="scrim" hidden></div>
+
+<aside id="sidebar" class="sidebar" aria-label="Konular">
+  <a class="brand" href="#baslangic">Python<br>alıştırmaları</a>
+  <div class="progress" aria-live="polite">
+    <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+    <p id="progress-text">0 / 23 konu tamamlandı</p>
+  </div>
+  <nav class="nav">
+<p class="nav-group">Temelden başla</p>
+<a class="nav-link" href="#print-yorum" data-topic="print-yorum"><span class="num">1</span>print ve yorum satırı</a>
+<a class="nav-link" href="#degiskenler" data-topic="degiskenler"><span class="num">2</span>Değişkenler</a>
+<a class="nav-link" href="#veri-tipleri" data-topic="veri-tipleri"><span class="num">3</span>Veri tipleri ve tür dönüşümü</a>
+<a class="nav-link" href="#operatorler" data-topic="operatorler"><span class="num">4</span>Operatörler</a>
+<a class="nav-link" href="#listeler" data-topic="listeler"><span class="num">5</span>Listeler</a>
+<a class="nav-link" href="#ic-ice-listeler" data-topic="ic-ice-listeler"><span class="num">6</span>İç içe listeler</a>
+<a class="nav-link" href="#tuple-set" data-topic="tuple-set"><span class="num">7</span>Tuple ve set</a>
+<a class="nav-link" href="#sozlukler" data-topic="sozlukler"><span class="num">8</span>Sözlükler (dict)</a>
+<a class="nav-link" href="#string" data-topic="string"><span class="num">9</span>Metin (string) işlemleri</a>
+<a class="nav-link" href="#bicimlendirme" data-topic="bicimlendirme"><span class="num">10</span>f-string ve kaçış karakterleri</a>
+<a class="nav-link" href="#hazir-fonksiyonlar" data-topic="hazir-fonksiyonlar"><span class="num">11</span>Hazır fonksiyonlar</a>
+<a class="nav-link" href="#if-else" data-topic="if-else"><span class="num">12</span>if, elif, else</a>
+<a class="nav-link" href="#for-dongusu" data-topic="for-dongusu"><span class="num">13</span>for döngüsü ve range</a>
+<a class="nav-link" href="#comprehension" data-topic="comprehension"><span class="num">14</span>Comprehension, enumerate ve zip</a>
+<a class="nav-link" href="#while-dongusu" data-topic="while-dongusu"><span class="num">15</span>while, break ve continue</a>
+<a class="nav-link" href="#fonksiyonlar" data-topic="fonksiyonlar"><span class="num">16</span>Fonksiyonlar</a>
+<a class="nav-link" href="#hata-import" data-topic="hata-import"><span class="num">17</span>Hata yakalama ve import</a>
+<p class="nav-group">Alıştırma problemleri</p>
+<a class="nav-link" href="#asal-carpan" data-topic="asal-carpan"><span class="num">1</span>Asal çarpan bulma</a>
+<a class="nav-link" href="#permutasyon" data-topic="permutasyon"><span class="num">2</span>Permütasyon bulma</a>
+<a class="nav-link" href="#flatten" data-topic="flatten"><span class="num">3</span>Liste düzleştirme</a>
+<a class="nav-link" href="#ortalama-liste" data-topic="ortalama-liste"><span class="num">4</span>Verilen ortalamada liste oluşturma</a>
+<a class="nav-link" href="#sinif-ortalamasi" data-topic="sinif-ortalamasi"><span class="num">5</span>Sınıf ortalaması hesaplama</a>
+<a class="nav-link" href="#zaman-farki" data-topic="zaman-farki"><span class="num">6</span>Zaman farkı</a>
+  </nav>
+  <button id="reset" class="reset" type="button">İlerlemeyi sıfırla</button>
+</aside>
+
+<main class="main" id="main">
+  <section class="view" id="view-baslangic" aria-labelledby="h-baslangic">
+    <h1 id="h-baslangic">Python alıştırmaları</h1>
+    <p class="lead">Python'u sıfırdan öğrenin. Önce temel konularla başlayın: her konuda kısa bir anlatım ve çalıştırılmış örnekler var.
+      Hazır olduğunuzda altı alıştırma problemine geçin; her problemde hangi temel konulara bakmanız gerektiği yazıyor.</p>
+    <ul class="home-list">
+<li class="home-group">Temelden başla</li>
+<li><a class="home-item" href="#print-yorum" data-topic="print-yorum"><span class="num">1</span><span><strong>print ve yorum satırı</strong><small>Ekrana yazdırma ve kod içine not düşme</small></span></a></li>
+<li><a class="home-item" href="#degiskenler" data-topic="degiskenler"><span class="num">2</span><span><strong>Değişkenler</strong><small>Değere isim verme ve atama (=)</small></span></a></li>
+<li><a class="home-item" href="#veri-tipleri" data-topic="veri-tipleri"><span class="num">3</span><span><strong>Veri tipleri ve tür dönüşümü</strong><small>int, float, str, bool, None</small></span></a></li>
+<li><a class="home-item" href="#operatorler" data-topic="operatorler"><span class="num">4</span><span><strong>Operatörler</strong><small>Aritmetik, karşılaştırma ve mantıksal işlemler</small></span></a></li>
+<li><a class="home-item" href="#listeler" data-topic="listeler"><span class="num">5</span><span><strong>Listeler</strong><small>Birden fazla değeri sıralı tutma</small></span></a></li>
+<li><a class="home-item" href="#ic-ice-listeler" data-topic="ic-ice-listeler"><span class="num">6</span><span><strong>İç içe listeler</strong><small>Listenin içinde liste</small></span></a></li>
+<li><a class="home-item" href="#tuple-set" data-topic="tuple-set"><span class="num">7</span><span><strong>Tuple ve set</strong><small>Değişmeyen liste ve tekrarsız küme</small></span></a></li>
+<li><a class="home-item" href="#sozlukler" data-topic="sozlukler"><span class="num">8</span><span><strong>Sözlükler (dict)</strong><small>Anahtar-değer eşleşmeleri</small></span></a></li>
+<li><a class="home-item" href="#string" data-topic="string"><span class="num">9</span><span><strong>Metin (string) işlemleri</strong><small>İndeksleme, arama, bölme, birleştirme</small></span></a></li>
+<li><a class="home-item" href="#bicimlendirme" data-topic="bicimlendirme"><span class="num">10</span><span><strong>f-string ve kaçış karakterleri</strong><small>Yazı içine değer yerleştirme</small></span></a></li>
+<li><a class="home-item" href="#hazir-fonksiyonlar" data-topic="hazir-fonksiyonlar"><span class="num">11</span><span><strong>Hazır fonksiyonlar</strong><small>len, sum, min, max, round, divmod...</small></span></a></li>
+<li><a class="home-item" href="#if-else" data-topic="if-else"><span class="num">12</span><span><strong>if, elif, else</strong><small>Koşula göre yön seçme</small></span></a></li>
+<li><a class="home-item" href="#for-dongusu" data-topic="for-dongusu"><span class="num">13</span><span><strong>for döngüsü ve range</strong><small>Elemanlar üzerinde sırayla işlem</small></span></a></li>
+<li><a class="home-item" href="#comprehension" data-topic="comprehension"><span class="num">14</span><span><strong>Comprehension, enumerate ve zip</strong><small>Kısa döngü yazımı ve eşli dolaşma</small></span></a></li>
+<li><a class="home-item" href="#while-dongusu" data-topic="while-dongusu"><span class="num">15</span><span><strong>while, break ve continue</strong><small>Koşul sürdükçe tekrar</small></span></a></li>
+<li><a class="home-item" href="#fonksiyonlar" data-topic="fonksiyonlar"><span class="num">16</span><span><strong>Fonksiyonlar</strong><small>Tekrar eden işi isimlendirme</small></span></a></li>
+<li><a class="home-item" href="#hata-import" data-topic="hata-import"><span class="num">17</span><span><strong>Hata yakalama ve import</strong><small>try/except, hazır modüller</small></span></a></li>
+<li class="home-group">Alıştırma problemleri</li>
+<li><a class="home-item" href="#asal-carpan" data-topic="asal-carpan"><span class="num">1</span><span><strong>Asal çarpan bulma</strong><small>Bir sayıyı bölen farklı asal sayılar</small></span></a></li>
+<li><a class="home-item" href="#permutasyon" data-topic="permutasyon"><span class="num">2</span><span><strong>Permütasyon bulma</strong><small>Rakamların tüm farklı dizilişleri</small></span></a></li>
+<li><a class="home-item" href="#flatten" data-topic="flatten"><span class="num">3</span><span><strong>Liste düzleştirme</strong><small>İç içe listeleri tek listeye çevirme</small></span></a></li>
+<li><a class="home-item" href="#ortalama-liste" data-topic="ortalama-liste"><span class="num">4</span><span><strong>Verilen ortalamada liste oluşturma</strong><small>Eleman sayısı, ortalama ve açıklık verilir</small></span></a></li>
+<li><a class="home-item" href="#sinif-ortalamasi" data-topic="sinif-ortalamasi"><span class="num">5</span><span><strong>Sınıf ortalaması hesaplama</strong><small>Geçersiz ve aykırı notları eleyerek ortalama</small></span></a></li>
+<li><a class="home-item" href="#zaman-farki" data-topic="zaman-farki"><span class="num">6</span><span><strong>Zaman farkı</strong><small>İki saat arasındaki dakika farkı</small></span></a></li>
+    </ul>
+  </section>
+<section class="view" id="view-print-yorum" aria-labelledby="h-print-yorum">
+  <p class="crumb">Konu 1 / 17</p>
+  <h2 id="h-print-yorum">print ve yorum satırı</h2>
+  <p class="lead">print, ekrana yazı veya sayı yazdırır. Yorum satırları ise koda not düşmek içindir; Python onları çalıştırmaz.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="print-yorum-1">
+  <header><h3>İlk print</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Yazı ve sayıları ekrana yazdırın.</p>
+  <div class="run">
+    <pre class="code"><code>print("Hello World")
+print(5)
+print(3, 5, 6, 7)
+print("Machine", "Learning")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Hello World
+5
+3 5 6 7
+Machine Learning</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="print-yorum-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="print-yorum-2">
+  <header><h3>sep ve end</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Değerler arasındaki ayırıcıyı ve satır sonunu değiştirin.</p>
+  <div class="run">
+    <pre class="code"><code>print("Hello", "World", "Machine", "Learning", sep="---")
+print("Hello", end="---")
+print("World")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Hello---World---Machine---Learning
+Hello---World</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="print-yorum-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="print-yorum-3">
+  <header><h3>Yorum satırı</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem"># ile başlayan satırlar çalışmaz. Satırın sonuna da yorum yazılabilir.</p>
+  <div class="run">
+    <pre class="code"><code># Bu satır yorumdur, çalışmaz
+print("Merhaba")  # satır sonundaki yorum
+# print("Bu satır çalışmaz")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Merhaba</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="print-yorum-3" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="print-yorum" data-total="3">0 / 3 örnek</span>
+    <button class="mark" type="button" data-topic="print-yorum" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#baslangic">&larr; Başlangıç</a><a href="#degiskenler">Değişkenler &rarr;</a></nav>
+</section>
+<section class="view" id="view-degiskenler" aria-labelledby="h-degiskenler">
+  <p class="crumb">Konu 2 / 17</p>
+  <h2 id="h-degiskenler">Değişkenler</h2>
+  <p class="lead">Değişken, bir değere verilen isimdir. = işareti sağdaki değeri soldaki isme atar. Okurken sağdan sola düşünün.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="degiskenler-1">
+  <header><h3>Değer değişir</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Aynı değişkene sonradan farklı bir değer atayın.</p>
+  <div class="run">
+    <pre class="code"><code>x = 5
+x = 10
+print(x)
+
+a = 10
+b = 5
+a = b
+print(a, b)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">10
+5 5</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="degiskenler-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="degiskenler-2">
+  <header><h3>Zincirleme atama</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Üç değişkene aynı anda aynı değeri verin.</p>
+  <div class="run">
+    <pre class="code"><code>x = y = z = 20
+print(x, y, z)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">20 20 20</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="degiskenler-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="degiskenler-3">
+  <header><h3>Yer değiştirme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">İki değişkenin değerlerini tek satırda takas edin.</p>
+  <div class="run">
+    <pre class="code"><code>a = 3
+b = 8
+a, b = b, a
+print(a, b)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">8 3</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="degiskenler-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="degiskenler-4">
+  <header><h3>Büyük/küçük harf</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">age ve Age farklı değişkenlerdir.</p>
+  <div class="run">
+    <pre class="code"><code>age = 20
+Age = 30
+print(age, Age)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">20 30</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="degiskenler-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="degiskenler" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="degiskenler" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#print-yorum">&larr; print ve yorum satırı</a><a href="#veri-tipleri">Veri tipleri ve tür dönüşümü &rarr;</a></nav>
+</section>
+<section class="view" id="view-veri-tipleri" aria-labelledby="h-veri-tipleri">
+  <p class="crumb">Konu 3 / 17</p>
+  <h2 id="h-veri-tipleri">Veri tipleri ve tür dönüşümü</h2>
+  <p class="lead">Her değerin bir türü vardır: int (tam sayı), float (ondalıklı sayı), str (yazı), bool (True/False) ve None (boş). type() türü gösterir; int(), float(), str(), bool() ise türü değiştirir.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="veri-tipleri-1">
+  <header><h3>type() ile tür öğrenme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Beş farklı değerin türünü yazdırın.</p>
+  <div class="run">
+    <pre class="code"><code>print(type(5))
+print(type(3.14))
+print(type("Hello"))
+print(type(True))
+print(type(None))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;
+&lt;class 'NoneType'&gt;</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="veri-tipleri-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="veri-tipleri-2">
+  <header><h3>Tür dönüşümü</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">int, float ve str dönüşümlerini deneyin.</p>
+  <div class="run">
+    <pre class="code"><code>x = 5.5
+y = int(x)
+print(y, type(y))
+print(float(5))
+print(str(5.0))
+print(int("5"))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">5 &lt;class 'int'&gt;
+5.0
+5.0
+5</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="veri-tipleri-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="veri-tipleri-3">
+  <header><h3>bool dönüşümü</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Hangi değerler False olur?</p>
+  <div class="run">
+    <pre class="code"><code>print(bool(5), bool(-55), bool(0))
+print(bool("a"), bool(""), bool(None))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">True True False
+True False False</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="veri-tipleri-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="veri-tipleri-4">
+  <header><h3>input her zaman str verir</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Kullanıcıdan gelen "7" bir yazıdır; toplamak yerine yan yana yazılır.</p>
+  <div class="run">
+    <pre class="code"><code>a = "7"  # input("Sayı: ") ile gelen değer de böyle str olur
+print(a + a)
+print(int(a) + int(a))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">77
+14</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="veri-tipleri-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="veri-tipleri-5">
+  <header><h3>Dönüştürülemeyen değer</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Sayıya benzemeyen bir yazı int() ile çevrilemez.</p>
+  <div class="run">
+    <pre class="code"><code>x = "5a"
+print(int(x))</code></pre>
+    <div class="output err">
+      <div class="output-head">
+        <span class="output-label">Çıktı (hata)</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Traceback (most recent call last):
+  ...
+ValueError: invalid literal for int() with base 10: '5a'</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="veri-tipleri-5" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="veri-tipleri" data-total="5">0 / 5 örnek</span>
+    <button class="mark" type="button" data-topic="veri-tipleri" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#degiskenler">&larr; Değişkenler</a><a href="#operatorler">Operatörler &rarr;</a></nav>
+</section>
+<section class="view" id="view-operatorler" aria-labelledby="h-operatorler">
+  <p class="crumb">Konu 4 / 17</p>
+  <h2 id="h-operatorler">Operatörler</h2>
+  <p class="lead">Operatörler değerler üzerinde işlem yapar. Aritmetik operatörler sayı üretir, karşılaştırma operatörleri True/False üretir, mantıksal operatörler (and, or, not) ise koşulları birleştirir.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="operatorler-1">
+  <header><h3>Aritmetik operatörler</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Dört işlemi ve bölme, kalan, üs işlemlerini yazdırın.</p>
+  <div class="run">
+    <pre class="code"><code>print(5 + 10)
+print(3 - 5)
+print(2 * 5)
+print(10 / 3)
+print(6 // 2)
+print(10 % 3)
+print(2 ** 0.5)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">15
+-2
+10
+3.3333333333333335
+3
+1
+1.4142135623730951</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="operatorler-2">
+  <header><h3>İşlem önceliği</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Parantezin sonucu nasıl değiştirdiğini görün.</p>
+  <div class="run">
+    <pre class="code"><code>print(5 ** (2 + 6) / 2)
+print(2 + 3 * 4)
+print((2 + 3) * 4)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">195312.5
+14
+20</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="operatorler-3">
+  <header><h3>Bileşik atama</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">a += 5, a = a + 5 ile aynı anlama gelir.</p>
+  <div class="run">
+    <pre class="code"><code>a = 5
+a += 5
+print(a)
+a -= 3
+a *= 2
+a //= 5
+print(a)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">10
+2</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="operatorler-4">
+  <header><h3>Karşılaştırma</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Sayı, yazı ve zincirleme karşılaştırmalar.</p>
+  <div class="run">
+    <pre class="code"><code>print(5 == 3, 5 != 3, 4 &gt; 3, 5 &gt;= 5)
+print(5 == "5", "5" == "5")
+print("Zebra" &gt; "zebra")
+print(3 &lt; 6 &lt; 8)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">False True True True
+False True
+False
+True</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="operatorler-5">
+  <header><h3>and, or, not</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Mantıksal operatörler değer de döndürebilir.</p>
+  <div class="run">
+    <pre class="code"><code>print(1 and 3 and 5)
+print(0 or 11 or 0)
+print(5 &gt; 3 and 7 &lt; 6)
+print(not 0)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">5
+11
+False
+True</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-5" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="operatorler-6">
+  <header><h3>Çift mi, tek mi?</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Bir sayı 2'ye bölününce kalan 0 ise çifttir.</p>
+  <div class="run">
+    <pre class="code"><code>print(7 % 2 == 0)
+print(10 % 2 == 0)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">False
+True</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-6" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="operatorler-7">
+  <header><h3>Saniyeyi dakikaya çevirme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">// ile tam dakikayı, % ile kalan saniyeyi bulun.</p>
+  <div class="run">
+    <pre class="code"><code>saniye = 200
+print(saniye // 60, "dk", saniye % 60, "sn")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">3 dk 20 sn</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="operatorler-7" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="operatorler" data-total="7">0 / 7 örnek</span>
+    <button class="mark" type="button" data-topic="operatorler" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#veri-tipleri">&larr; Veri tipleri ve tür dönüşümü</a><a href="#listeler">Listeler &rarr;</a></nav>
+</section>
+<section class="view" id="view-listeler" aria-labelledby="h-listeler">
+  <p class="crumb">Konu 5 / 17</p>
+  <h2 id="h-listeler">Listeler</h2>
+  <p class="lead">Liste, birden çok değeri tek değişkende tutar. Köşeli parantezle tanımlanır, farklı türleri bir arada tutabilir ve sonradan değiştirilebilir.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="listeler-1">
+  <header><h3>İndeksleme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Baştan ve sondan elemanlara ulaşın.</p>
+  <div class="run">
+    <pre class="code"><code>liste = ["Machine", "Learning", "Supervised", "Learning"]
+print(liste[0])
+print(liste[2])
+print(liste[-1])</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Machine
+Supervised
+Learning</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="listeler-2">
+  <header><h3>Dilimleme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Belirli bir aralığı alın, adım verin, listeyi ters çevirin.</p>
+  <div class="run">
+    <pre class="code"><code>liste = ["Machine", "Learning", "Supervised", "Learning"]
+print(liste[0:2])
+print(liste[0:3:2])
+print(liste[::-1])</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">['Machine', 'Learning']
+['Machine', 'Supervised']
+['Learning', 'Supervised', 'Learning', 'Machine']</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="listeler-3">
+  <header><h3>Ekleme ve silme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">append, insert, extend, remove ve pop metotlarını sırayla uygulayın.</p>
+  <div class="run">
+    <pre class="code"><code>liste = ["A", "B", "C", "D"]
+liste.append("E")
+liste.insert(3, "Ç")
+liste.extend(["F", "G"])
+print(liste)
+liste.remove("A")
+liste.pop(0)
+print(liste)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G']
+['C', 'Ç', 'D', 'E', 'F', 'G']</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="listeler-4">
+  <header><h3>append ve extend farkı</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">append listeyi tek eleman olarak, extend elemanlarını ayrı ayrı ekler.</p>
+  <div class="run">
+    <pre class="code"><code>l1 = ["A", "B"]
+l1.append(["E", "F"])
+print(l1)
+l2 = ["A", "B"]
+l2.extend(["E", "F"])
+print(l2)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">['A', 'B', ['E', 'F']]
+['A', 'B', 'E', 'F']</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="listeler-5">
+  <header><h3>Sıralama, sayma, arama</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">sort, index ve count metotları.</p>
+  <div class="run">
+    <pre class="code"><code>sayilar = [5, 3, 4, 7, 8, 92, 2, 1]
+sayilar.sort()
+print(sayilar)
+sayilar.sort(reverse=True)
+print(sayilar)
+print(sayilar.index(92), sayilar.count(3))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[1, 2, 3, 4, 5, 7, 8, 92]
+[92, 8, 7, 5, 4, 3, 2, 1]
+0 1</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-5" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="listeler-6">
+  <header><h3>Kopya mı, aynı liste mi?</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">b = a aynı listeyi gösterir; copy() bağımsız kopya üretir.</p>
+  <div class="run">
+    <pre class="code"><code>a = [1, 2, 3]
+b = a
+c = a.copy()
+a.append(4)
+print(a, b, c)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[1, 2, 3, 4] [1, 2, 3, 4] [1, 2, 3]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-6" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="listeler-7">
+  <header><h3>Listede olmayan indeks</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">3 elemanlı listede en son indeks 2'dir.</p>
+  <div class="run">
+    <pre class="code"><code>liste = [1, 2, 3]
+print(liste[3])</code></pre>
+    <div class="output err">
+      <div class="output-head">
+        <span class="output-label">Çıktı (hata)</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Traceback (most recent call last):
+  ...
+IndexError: list index out of range</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="listeler-7" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="listeler" data-total="7">0 / 7 örnek</span>
+    <button class="mark" type="button" data-topic="listeler" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#operatorler">&larr; Operatörler</a><a href="#ic-ice-listeler">İç içe listeler &rarr;</a></nav>
+</section>
+<section class="view" id="view-ic-ice-listeler" aria-labelledby="h-ic-ice-listeler">
+  <p class="crumb">Konu 6 / 17</p>
+  <h2 id="h-ic-ice-listeler">İç içe listeler</h2>
+  <p class="lead">Bir listenin elemanı başka bir liste olabilir. İçerideki elemana ulaşmak için indeksler art arda yazılır: önce dış liste, sonra iç liste.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="ic-ice-listeler-1">
+  <header><h3>Art arda indeksleme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">3x3 bir tablodan satır ve tek tek değer alın.</p>
+  <div class="run">
+    <pre class="code"><code>liste = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(liste[0])
+print(liste[0][1])
+print(liste[-1][-1])</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[1, 2, 3]
+2
+9</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ic-ice-listeler-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="ic-ice-listeler-2">
+  <header><h3>Satır toplamları</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Her iç listenin toplamını yazdırın. for döngüsünü ilerleyen konuda ayrıntılı göreceksiniz.</p>
+  <div class="run">
+    <pre class="code"><code>liste = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+for satir in liste:
+    print(satir, sum(satir))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[1, 2, 3] 6
+[4, 5, 6] 15
+[7, 8, 9] 24</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ic-ice-listeler-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="ic-ice-listeler-3">
+  <header><h3>Eleman liste mi?</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Karışık bir listede hangi elemanlar liste?</p>
+  <div class="run">
+    <pre class="code"><code>veriler = [1, [2, 3], "yazı", []]
+for eleman in veriler:
+    print(eleman, isinstance(eleman, list))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">1 False
+[2, 3] True
+yazı False
+[] True</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ic-ice-listeler-3" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="ic-ice-listeler" data-total="3">0 / 3 örnek</span>
+    <button class="mark" type="button" data-topic="ic-ice-listeler" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#listeler">&larr; Listeler</a><a href="#tuple-set">Tuple ve set &rarr;</a></nav>
+</section>
+<section class="view" id="view-tuple-set" aria-labelledby="h-tuple-set">
+  <p class="crumb">Konu 7 / 17</p>
+  <h2 id="h-tuple-set">Tuple ve set</h2>
+  <p class="lead">Tuple, değiştirilemeyen bir listedir ve parantezle yazılır. Set ise sırasız ve tekrarsız elemanlardan oluşan bir kümedir; süslü parantezle yazılır.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="tuple-set-1">
+  <header><h3>Tuple kullanımı</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">İndeksleme, count ve index; tek elemanlı tuple.</p>
+  <div class="run">
+    <pre class="code"><code>t = ("A", "B", "C", "D", "E")
+print(t[0], t[-1])
+t = (1, 2, 2, 3)
+print(t.count(2), t.index(3))
+print(type((5,)), type((5)))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">A E
+2 3
+&lt;class 'tuple'&gt; &lt;class 'int'&gt;</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="tuple-set-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="tuple-set-2">
+  <header><h3>Tuple değiştirilemez</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Eleman atamaya çalışmak hata verir.</p>
+  <div class="run">
+    <pre class="code"><code>t = (1, 2, 3)
+t[1] = 5</code></pre>
+    <div class="output err">
+      <div class="output-head">
+        <span class="output-label">Çıktı (hata)</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Traceback (most recent call last):
+  ...
+TypeError: 'tuple' object does not support item assignment</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="tuple-set-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="tuple-set-3">
+  <header><h3>Set işlemleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Tekrarlı eleman eklenmez; update, discard ve remove.</p>
+  <div class="run">
+    <pre class="code"><code>s = {1, 2}
+s.add(2)
+print(s)
+s.update((4, 5, 6))
+print(s)
+s.discard(10)
+s.remove(2)
+print(s)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">{1, 2}
+{1, 2, 4, 5, 6}
+{1, 4, 5, 6}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="tuple-set-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="tuple-set-4">
+  <header><h3>Küme matematiği</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">İki kümenin birleşimi, kesişimi, farkı ve simetrik farkı.</p>
+  <div class="run">
+    <pre class="code"><code>A = {1, 2, 3}
+B = {3, 4, 5}
+print(A | B)
+print(A &amp; B)
+print(A - B)
+print(A ^ B)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">{1, 2, 3, 4, 5}
+{3}
+{1, 2}
+{1, 2, 4, 5}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="tuple-set-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="tuple-set-5">
+  <header><h3>Tekrarları temizleme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Listeyi sete çevirmek tekrar eden değerleri atar.</p>
+  <div class="run">
+    <pre class="code"><code>notlar = [3, 1, 3, 2, 1]
+print(sorted(set(notlar)))
+print(len(notlar), len(set(notlar)))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[1, 2, 3]
+5 3</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="tuple-set-5" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="tuple-set" data-total="5">0 / 5 örnek</span>
+    <button class="mark" type="button" data-topic="tuple-set" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#ic-ice-listeler">&larr; İç içe listeler</a><a href="#sozlukler">Sözlükler (dict) &rarr;</a></nav>
+</section>
+<section class="view" id="view-sozlukler" aria-labelledby="h-sozlukler">
+  <p class="crumb">Konu 8 / 17</p>
+  <h2 id="h-sozlukler">Sözlükler (dict)</h2>
+  <p class="lead">Sözlük, her anahtarın (key) bir değere (value) karşılık geldiği yapıdır. Süslü parantezle yazılır; değerlere sıra yerine anahtarla ulaşılır.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="sozlukler-1">
+  <header><h3>Sözlük oluşturma ve değiştirme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Değerlere anahtarla ulaşın ve bir değeri güncelleyin.</p>
+  <div class="run">
+    <pre class="code"><code>student = {"name": "Lara Croft", "age": 21, "grades": [85, 90, 78]}
+print(student["grades"])
+student["name"] = "Sancar Han"
+print(student)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[85, 90, 78]
+{'name': 'Sancar Han', 'age': 21, 'grades': [85, 90, 78]}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sozlukler-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sozlukler-2">
+  <header><h3>get, keys, values, items</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Olmayan anahtarda get None döndürür.</p>
+  <div class="run">
+    <pre class="code"><code>student = {"name": "Lara Croft", "age": 21}
+print(student.get("name"))
+print(student.get("school"))
+print(list(student.keys()))
+print(list(student.values()))
+print(list(student.items()))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Lara Croft
+None
+['name', 'age']
+['Lara Croft', 21]
+[('name', 'Lara Croft'), ('age', 21)]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sozlukler-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sozlukler-3">
+  <header><h3>Aynı anahtar iki kez</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Sonuncu değer geçerli olur.</p>
+  <div class="run">
+    <pre class="code"><code>student = {"name": "Lara Croft", "age": 21, "name": "Peter Parker"}
+print(student)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">{'name': 'Peter Parker', 'age': 21}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sozlukler-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sozlukler-4">
+  <header><h3>update ve pop</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Değeri güncelleyin ve bir anahtarı silin.</p>
+  <div class="run">
+    <pre class="code"><code>student = {"name": "Lara Croft", "age": 21}
+student.update({"age": 40})
+print(student)
+student.pop("name")
+print(student)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">{'name': 'Lara Croft', 'age': 40}
+{'age': 40}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sozlukler-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sozlukler-5">
+  <header><h3>Harf sayacı</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Her harfin kaç kez geçtiğini sözlükte tutun.</p>
+  <div class="run">
+    <pre class="code"><code>metin = "elma"
+sayac = {}
+for harf in metin:
+    sayac[harf] = sayac.get(harf, 0) + 1
+print(sayac)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">{'e': 1, 'l': 1, 'm': 1, 'a': 1}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sozlukler-5" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sozlukler-6">
+  <header><h3>Olmayan anahtar</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Köşeli parantezle olmayan anahtara ulaşmak hata verir.</p>
+  <div class="run">
+    <pre class="code"><code>ogrenci = {"ad": "Ali"}
+print(ogrenci["okul"])</code></pre>
+    <div class="output err">
+      <div class="output-head">
+        <span class="output-label">Çıktı (hata)</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Traceback (most recent call last):
+  ...
+KeyError: 'okul'</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sozlukler-6" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="sozlukler" data-total="6">0 / 6 örnek</span>
+    <button class="mark" type="button" data-topic="sozlukler" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#tuple-set">&larr; Tuple ve set</a><a href="#string">Metin (string) işlemleri &rarr;</a></nav>
+</section>
+<section class="view" id="view-string" aria-labelledby="h-string">
+  <p class="crumb">Konu 9 / 17</p>
+  <h2 id="h-string">Metin (string) işlemleri</h2>
+  <p class="lead">Yazılar tırnak içinde yazılır. Listeler gibi indekslenebilir ve dilimlenebilir, ancak değiştirilemez; her metot yeni bir yazı döndürür.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="string-1">
+  <header><h3>İndeks ve dilim</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Yazı da liste gibi dolaşılır.</p>
+  <div class="run">
+    <pre class="code"><code>kelime = "Python"
+print(kelime[0], kelime[-1])
+print(kelime[0:3])
+print(kelime[::-1])
+print("Ha" * 3)
+print("Merhaba" + " Dünya")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">P n
+Pyt
+nohtyP
+HaHaHa
+Merhaba Dünya</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="string-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="string-2">
+  <header><h3>Harf, arama ve değiştirme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">upper, lower, title, find, count ve replace.</p>
+  <div class="run">
+    <pre class="code"><code>yazi = "MerHaBa dÜnYa"
+print(yazi.upper())
+print(yazi.lower())
+print(yazi.title())
+metin = "python programlama"
+print(metin.find("pro"), metin.find("xyz"))
+print(metin.count("a"))
+print(metin.replace("python", "java"))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">MERHABA DÜNYA
+merhaba dünya
+Merhaba Dünya
+7 -1
+3
+java programlama</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="string-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="string-3">
+  <header><h3>split, join, strip</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Yazıyı parçalayın, tekrar birleştirin, boşlukları atın.</p>
+  <div class="run">
+    <pre class="code"><code>liste = "elma,armut,çilek".split(",")
+print(liste)
+print("-".join(liste))
+print("  Merhaba  ".strip())</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">['elma', 'armut', 'çilek']
+elma-armut-çilek
+Merhaba</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="string-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="string-4">
+  <header><h3>Rakam kontrolü</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">isdecimal yalnızca 0-9 rakamlarını kabul eder.</p>
+  <div class="run">
+    <pre class="code"><code>print("12345".isdecimal())
+print("123abc".isdecimal())
+print("²³".isdecimal())</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">True
+False
+False</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="string-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="string-5">
+  <header><h3>Saat yazısını sayıya çevirme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">"08:30" yazısını ikiye bölüp toplam dakikayı hesaplayın. Zaman farkı probleminin ilk adımı budur.</p>
+  <div class="run">
+    <pre class="code"><code>zaman = "08:30"
+saat, dakika = zaman.split(":")
+print(saat, dakika)
+print(int(saat) * 60 + int(dakika))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">08 30
+510</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="string-5" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="string" data-total="5">0 / 5 örnek</span>
+    <button class="mark" type="button" data-topic="string" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#sozlukler">&larr; Sözlükler (dict)</a><a href="#bicimlendirme">f-string ve kaçış karakterleri &rarr;</a></nav>
+</section>
+<section class="view" id="view-bicimlendirme" aria-labelledby="h-bicimlendirme">
+  <p class="crumb">Konu 10 / 17</p>
+  <h2 id="h-bicimlendirme">f-string ve kaçış karakterleri</h2>
+  <p class="lead">f-string, yazının içine süslü parantezle değişken veya işlem yerleştirmeyi sağlar. Yazının başına f harfi eklenir.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="bicimlendirme-1">
+  <header><h3>f-string ve format</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Aynı cümleyi iki yöntemle kurun.</p>
+  <div class="run">
+    <pre class="code"><code>isim = "Gordon Freeman"
+yas = 25
+print(f"Merhaba {isim}, {yas} yaşındasın.")
+print("Merhaba {}, {} yaşındasın.".format(isim, yas))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Merhaba Gordon Freeman, 25 yaşındasın.
+Merhaba Gordon Freeman, 25 yaşındasın.</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="bicimlendirme-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="bicimlendirme-2">
+  <header><h3>Kaçış karakterleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Yeni satır, sekme ve tırnak.</p>
+  <div class="run">
+    <pre class="code"><code>print("Birinci Satır\nİkinci Satır")
+print("Tabdan öncesi\tTabdan Sonrası")
+print("Metin içine \" ve \\ koyuyorum")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Birinci Satır
+İkinci Satır
+Tabdan öncesi	Tabdan Sonrası
+Metin içine " ve \ koyuyorum</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="bicimlendirme-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="bicimlendirme-3">
+  <header><h3>Sayı biçimlendirme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Ondalık basamak sayısını ve hizalamayı ayarlayın.</p>
+  <div class="run">
+    <pre class="code"><code>pi = 3.14159
+print(f"{pi:.2f}")
+print(f"|{7:&gt;4}|{42:&gt;4}|")
+print(f"{2 + 3} = {2 + 3}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">3.14
+|   7|  42|
+5 = 5</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="bicimlendirme-3" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="bicimlendirme" data-total="3">0 / 3 örnek</span>
+    <button class="mark" type="button" data-topic="bicimlendirme" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#string">&larr; Metin (string) işlemleri</a><a href="#hazir-fonksiyonlar">Hazır fonksiyonlar &rarr;</a></nav>
+</section>
+<section class="view" id="view-hazir-fonksiyonlar" aria-labelledby="h-hazir-fonksiyonlar">
+  <p class="crumb">Konu 11 / 17</p>
+  <h2 id="h-hazir-fonksiyonlar">Hazır fonksiyonlar</h2>
+  <p class="lead">Python'da sık gereken işler için hazır fonksiyonlar vardır; yeniden yazmanız gerekmez.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="hazir-fonksiyonlar-1">
+  <header><h3>abs, pow, round, divmod</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Mutlak değer, üs, yuvarlama ve bölüm-kalan.</p>
+  <div class="run">
+    <pre class="code"><code>print(abs(-5.3))
+print(pow(3, -2))
+print(round(3.1415, 2), round(0.6), round(0.5))
+print(divmod(10, 3))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">5.3
+0.1111111111111111
+3.14 1 0
+(3, 1)</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hazir-fonksiyonlar-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="hazir-fonksiyonlar-2">
+  <header><h3>min, max, len</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Liste ve yazılar üzerinde.</p>
+  <div class="run">
+    <pre class="code"><code>print(min([1, 2, 3]))
+print(max(["A", "B", "C"]))
+print(len(("a", "b", "c", "d")))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">1
+C
+4</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hazir-fonksiyonlar-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="hazir-fonksiyonlar-3">
+  <header><h3>Not özeti</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Notların toplamı, ortalaması, en düşüğü ve sıralı hali.</p>
+  <div class="run">
+    <pre class="code"><code>notlar = [70, 85, 90, 60]
+print(sum(notlar), sum(notlar) / len(notlar))
+print(min(notlar), max(notlar))
+print(sorted(notlar))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">305 76.25
+60 90
+[60, 70, 85, 90]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hazir-fonksiyonlar-3" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="hazir-fonksiyonlar" data-total="3">0 / 3 örnek</span>
+    <button class="mark" type="button" data-topic="hazir-fonksiyonlar" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#bicimlendirme">&larr; f-string ve kaçış karakterleri</a><a href="#if-else">if, elif, else &rarr;</a></nav>
+</section>
+<section class="view" id="view-if-else" aria-labelledby="h-if-else">
+  <p class="crumb">Konu 12 / 17</p>
+  <h2 id="h-if-else">if, elif, else</h2>
+  <p class="lead">Koşullar programın hangi bloğun çalışacağını belirler. Bloklar girinti (4 boşluk) ile belirtilir; girinti Python'da zorunludur.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="if-else-1">
+  <header><h3>if ve else</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Girinti, hangi satırların blokta olduğunu belirler.</p>
+  <div class="run">
+    <pre class="code"><code>a = 5
+if a &gt; 10:
+    print("Büyük")
+else:
+    print("Küçük")
+print("Blok dışı")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Küçük
+Blok dışı</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="if-else-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="if-else-2">
+  <header><h3>elif</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Üç durumu ayırın.</p>
+  <div class="run">
+    <pre class="code"><code>a = 10
+if a &gt; 10:
+    print("Büyük")
+elif a == 10:
+    print("Eşit")
+else:
+    print("Küçük")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Eşit</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="if-else-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="if-else-3">
+  <header><h3>Doğruluk değeri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Sayı veya liste doğrudan koşul olarak kullanılabilir.</p>
+  <div class="run">
+    <pre class="code"><code>if 1:
+    print("1 doğru sayılır")
+if []:
+    print("Bu yazılmaz")
+else:
+    print("Boş liste yanlış sayılır")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">1 doğru sayılır
+Boş liste yanlış sayılır</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="if-else-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="if-else-4">
+  <header><h3>Harf notu</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Puana göre harf notu belirleyin.</p>
+  <div class="run">
+    <pre class="code"><code>puan = 78
+if puan &gt;= 90:
+    print("AA")
+elif puan &gt;= 80:
+    print("BA")
+elif puan &gt;= 70:
+    print("BB")
+else:
+    print("CC veya altı")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">BB</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="if-else-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="if-else-5">
+  <header><h3>Koşulları birleştirme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">and ile iki koşulun birlikte doğru olmasını isteyin.</p>
+  <div class="run">
+    <pre class="code"><code>yas = 20
+ehliyet = True
+if yas &gt;= 18 and ehliyet:
+    print("Araç kullanabilir")
+else:
+    print("Kullanamaz")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Araç kullanabilir</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="if-else-5" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="if-else" data-total="5">0 / 5 örnek</span>
+    <button class="mark" type="button" data-topic="if-else" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#hazir-fonksiyonlar">&larr; Hazır fonksiyonlar</a><a href="#for-dongusu">for döngüsü ve range &rarr;</a></nav>
+</section>
+<section class="view" id="view-for-dongusu" aria-labelledby="h-for-dongusu">
+  <p class="crumb">Konu 13 / 17</p>
+  <h2 id="h-for-dongusu">for döngüsü ve range</h2>
+  <p class="lead">for, bir listedeki, yazıdaki veya aralıktaki her eleman için aynı işi tekrarlar. Döngü değişkeni her turda sıradaki elemanı alır.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="for-dongusu-1">
+  <header><h3>Liste ve yazı dolaşma</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Her elemanı sırayla yazdırın.</p>
+  <div class="run">
+    <pre class="code"><code>for kelime in ["Machine", "Learning"]:
+    print(kelime)
+for harf in "Kratos":
+    print(harf, end=" ")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Machine
+Learning
+K r a t o s </pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="for-dongusu-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="for-dongusu-2">
+  <header><h3>range</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Üç farklı range kullanımı.</p>
+  <div class="run">
+    <pre class="code"><code>for i in range(3):
+    print(i, end=" ")
+print()
+for i in range(1, 10, 2):
+    print(i, end=" ")
+print()
+print(list(range(5, 0, -1)))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">0 1 2 
+1 3 5 7 9 
+[5, 4, 3, 2, 1]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="for-dongusu-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="for-dongusu-3">
+  <header><h3>İç içe for</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">İç listelerin elemanlarını tek tek dolaşın.</p>
+  <div class="run">
+    <pre class="code"><code>liste = [[1, 2, 3], [4, 5, 6]]
+for satir in liste:
+    for sayi in satir:
+        print(sayi, end=" ")
+    print("|")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">1 2 3 |
+4 5 6 |</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="for-dongusu-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="for-dongusu-4">
+  <header><h3>Birden fazla değişken</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">İkililer tek turda iki değişkene açılır.</p>
+  <div class="run">
+    <pre class="code"><code>liste = [("A", "a"), ("B", "b"), ("C", "c")]
+for buyuk, kucuk in liste:
+    print(f"Büyük:{buyuk} Küçük:{kucuk}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Büyük:A Küçük:a
+Büyük:B Küçük:b
+Büyük:C Küçük:c</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="for-dongusu-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="for-dongusu-5">
+  <header><h3>Toplama</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">1'den 5'e kadar sayıları toplayın.</p>
+  <div class="run">
+    <pre class="code"><code>toplam = 0
+for i in range(1, 6):
+    toplam += i
+print(toplam)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">15</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="for-dongusu-5" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="for-dongusu-6">
+  <header><h3>Uygulama: palindrom</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Baştan ve sondan okunuşu aynı olan kelimeleri bulun.</p>
+  <div class="run">
+    <pre class="code"><code>kelime = "tenet"
+uzunluk = len(kelime)
+palindrom = True
+for i in range(uzunluk // 2):
+    if kelime[i] != kelime[uzunluk - 1 - i]:
+        palindrom = False
+print(palindrom)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">True</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="for-dongusu-6" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="for-dongusu" data-total="6">0 / 6 örnek</span>
+    <button class="mark" type="button" data-topic="for-dongusu" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#if-else">&larr; if, elif, else</a><a href="#comprehension">Comprehension, enumerate ve zip &rarr;</a></nav>
+</section>
+<section class="view" id="view-comprehension" aria-labelledby="h-comprehension">
+  <p class="crumb">Konu 14 / 17</p>
+  <h2 id="h-comprehension">Comprehension, enumerate ve zip</h2>
+  <p class="lead">Comprehension, bir listeyi tek satırda üretmenin kısa yoludur: [ifade for eleman in dizi if koşul]. enumerate indeksi, zip ise iki listeyi birlikte dolaşmayı sağlar.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="comprehension-1">
+  <header><h3>For ile ve comprehension ile</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Aynı kareler listesini iki yolla üretin.</p>
+  <div class="run">
+    <pre class="code"><code>kareler = []
+for i in range(5):
+    kareler.append(i ** 2)
+print(kareler)
+print([x ** 2 for x in range(5)])</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[0, 1, 4, 9, 16]
+[0, 1, 4, 9, 16]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="comprehension-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="comprehension-2">
+  <header><h3>Küme ve sözlük</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Aynı yazım süslü parantezle kullanılır.</p>
+  <div class="run">
+    <pre class="code"><code>print({x ** 2 for x in range(5)})
+print({x: x ** 2 for x in range(5)})</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">{0, 1, 4, 9, 16}
+{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="comprehension-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="comprehension-3">
+  <header><h3>Koşullu comprehension</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Yalnızca çift sayıları ve geçerli notları (0-100) seçin.</p>
+  <div class="run">
+    <pre class="code"><code>print([x for x in range(10) if x % 2 == 0])
+notlar = [40, -5, 105, 70, 100]
+print([n for n in notlar if 0 &lt;= n &lt;= 100])</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[0, 2, 4, 6, 8]
+[40, 70, 100]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="comprehension-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="comprehension-4">
+  <header><h3>enumerate</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Elemanla birlikte sırasını da alın.</p>
+  <div class="run">
+    <pre class="code"><code>words = ["Hello", "World", "Machine"]
+for index, word in enumerate(words):
+    print(f"{index}. kelime = {word}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">0. kelime = Hello
+1. kelime = World
+2. kelime = Machine</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="comprehension-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="comprehension-5">
+  <header><h3>zip</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">İki listeyi yan yana dolaşın; fazla elemanlar atlanır.</p>
+  <div class="run">
+    <pre class="code"><code>names = ["Rick", "Morty", "Summer"]
+ages = [70, 14, 17, 20, 25, 50]
+for name, age in zip(names, ages):
+    print(name, "-&gt;", age)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Rick -&gt; 70
+Morty -&gt; 14
+Summer -&gt; 17</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="comprehension-5" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="comprehension" data-total="5">0 / 5 örnek</span>
+    <button class="mark" type="button" data-topic="comprehension" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#for-dongusu">&larr; for döngüsü ve range</a><a href="#while-dongusu">while, break ve continue &rarr;</a></nav>
+</section>
+<section class="view" id="view-while-dongusu" aria-labelledby="h-while-dongusu">
+  <p class="crumb">Konu 15 / 17</p>
+  <h2 id="h-while-dongusu">while, break ve continue</h2>
+  <p class="lead">while, koşul doğru olduğu sürece döngüyü tekrarlar. Koşulda kullanılan değişken döngü içinde güncellenmezse döngü sonsuza kadar sürer.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="while-dongusu-1">
+  <header><h3>Temel while</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">1'den 5'e kadar sayın.</p>
+  <div class="run">
+    <pre class="code"><code>sayi = 1
+while sayi &lt;= 5:
+    print("Sayı:", sayi)
+    sayi += 1</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Sayı: 1
+Sayı: 2
+Sayı: 3
+Sayı: 4
+Sayı: 5</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="while-dongusu-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="while-dongusu-2">
+  <header><h3>break</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">i 3 olunca döngüden çıkın.</p>
+  <div class="run">
+    <pre class="code"><code>i = 1
+while i &lt;= 5:
+    if i == 3:
+        print("i = 3 oldu, çıkılıyor.")
+        break
+    print("i:", i)
+    i += 1</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">i: 1
+i: 2
+i = 3 oldu, çıkılıyor.</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="while-dongusu-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="while-dongusu-3">
+  <header><h3>continue</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">3. turu atlayıp devam edin.</p>
+  <div class="run">
+    <pre class="code"><code>i = 0
+while i &lt; 5:
+    i += 1
+    if i == 3:
+        print("bu tur atlanıyor.")
+        continue
+    print("i:", i)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">i: 1
+i: 2
+bu tur atlanıyor.
+i: 4
+i: 5</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="while-dongusu-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="while-dongusu-4">
+  <header><h3>Kaç adımda 1'e iner?</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Sayıyı 1 olana kadar 2'ye bölün ve adımları sayın.</p>
+  <div class="run">
+    <pre class="code"><code>n = 100
+adim = 0
+while n &gt; 1:
+    n //= 2
+    adim += 1
+print(adim)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">6</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="while-dongusu-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="while-dongusu-5">
+  <header><h3>Bir çarpanı tamamen bölme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">360 sayısını 2'ye bölünemeyene kadar bölün. Asal çarpan probleminde aynı fikir kullanılır.</p>
+  <div class="run">
+    <pre class="code"><code>n = 360
+while n % 2 == 0:
+    n //= 2
+print(n)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">45</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="while-dongusu-5" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="while-dongusu-6">
+  <header><h3>Uygulama: sayı tahmini</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">input yerine hazır tahmin listesi kullanıldı; doğru tahminde döngü biter.</p>
+  <div class="run">
+    <pre class="code"><code>sayi = 11
+for tahmin in [5, 20, 11, 3]:
+    if tahmin == sayi:
+        print("Bildiniz")
+        break
+    print("Bilemediniz, tekrar deneyin")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Bilemediniz, tekrar deneyin
+Bilemediniz, tekrar deneyin
+Bildiniz</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="while-dongusu-6" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="while-dongusu" data-total="6">0 / 6 örnek</span>
+    <button class="mark" type="button" data-topic="while-dongusu" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#comprehension">&larr; Comprehension, enumerate ve zip</a><a href="#fonksiyonlar">Fonksiyonlar &rarr;</a></nav>
+</section>
+<section class="view" id="view-fonksiyonlar" aria-labelledby="h-fonksiyonlar">
+  <p class="crumb">Konu 16 / 17</p>
+  <h2 id="h-fonksiyonlar">Fonksiyonlar</h2>
+  <p class="lead">Fonksiyon, bir işi bir kez yazıp istediğiniz kadar çağırmanızı sağlar. def ile tanımlanır, adıyla çağrılır; return sonucu çağrıldığı yere geri verir.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="fonksiyonlar-1">
+  <header><h3>Tanımlama, çağırma, parametre</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Aynı fonksiyonu farklı değerlerle çağırın.</p>
+  <div class="run">
+    <pre class="code"><code>def selam_ver(isim):
+    print(f"Merhaba {isim}!")
+
+selam_ver("Ellie")
+selam_ver("Joel")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Merhaba Ellie!
+Merhaba Joel!</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="fonksiyonlar-2">
+  <header><h3>Keyword ve varsayılan parametre</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Parametreleri adıyla gönderin; verilmeyene varsayılan değer uygulanır.</p>
+  <div class="run">
+    <pre class="code"><code>def kayit(isim, yas, bolum="Art"):
+    print(f"{isim} | yaş:{yas} | bölüm:{bolum}")
+
+kayit("Max", yas=16)
+kayit(isim="Chloe", yas=19, bolum="Müzik")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Max | yaş:16 | bölüm:Art
+Chloe | yaş:19 | bölüm:Müzik</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="fonksiyonlar-3">
+  <header><h3>return</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Sonucu fonksiyondan geri alın ve değişkende saklayın.</p>
+  <div class="run">
+    <pre class="code"><code>def carpma(a, b):
+    return a * b
+
+sonuc = carpma(4, 5)
+print("Çarpım:", sonuc)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Çarpım: 20</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="fonksiyonlar-4">
+  <header><h3>Birden fazla değer döndürme</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Bölüm ve kalanı birlikte verin.</p>
+  <div class="run">
+    <pre class="code"><code>def bol(a, b):
+    return a // b, a % b
+
+bolum, kalan = bol(17, 5)
+print(bolum, kalan)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">3 2</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="fonksiyonlar-5">
+  <header><h3>Scope</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Fonksiyon içindeki y dışarıdan görünmez.</p>
+  <div class="run">
+    <pre class="code"><code>def fonk():
+    y = 10
+    print(y)
+
+fonk()
+print(y)</code></pre>
+    <div class="output err">
+      <div class="output-head">
+        <span class="output-label">Çıktı (hata)</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">10
+Traceback (most recent call last):
+  ...
+NameError: name 'y' is not defined</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-5" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="fonksiyonlar-6">
+  <header><h3>lambda</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Tek satırlık kısa fonksiyon.</p>
+  <div class="run">
+    <pre class="code"><code>kare_al = lambda x: x * x
+print(kare_al(4))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">16</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-6" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="fonksiyonlar-7">
+  <header><h3>Docstring ve tip belirtme</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Parametre ve dönüş türleri yalnızca bilgilendiricidir; Python bunları zorlamaz.</p>
+  <div class="run">
+    <pre class="code"><code>def ortalama_hesapla(sayilar: list) -&gt; float:
+    """Sayıların aritmetik ortalamasını döndürür."""
+    return sum(sayilar) / len(sayilar)
+
+print(ortalama_hesapla([70, 80, 90]))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">80.0</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="fonksiyonlar-7" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="fonksiyonlar" data-total="7">0 / 7 örnek</span>
+    <button class="mark" type="button" data-topic="fonksiyonlar" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#while-dongusu">&larr; while, break ve continue</a><a href="#hata-import">Hata yakalama ve import &rarr;</a></nav>
+</section>
+<section class="view" id="view-hata-import" aria-labelledby="h-hata-import">
+  <p class="crumb">Konu 17 / 17</p>
+  <h2 id="h-hata-import">Hata yakalama ve import</h2>
+  <p class="lead">Hatalar programı durdurur. try/except ile beklediğiniz hataları yakalayıp programı sürdürebilirsiniz. import ise Python'un hazır modüllerini (math, itertools, statistics gibi) kullanmanızı sağlar.</p>
+  
+  
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="hata-import-1">
+  <header><h3>try / except</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Sayıya çevrilemeyen girdiyi yakalayın.</p>
+  <div class="run">
+    <pre class="code"><code>for girdi in ["12", "abc"]:
+    try:
+        print(int(girdi) * 2)
+    except ValueError:
+        print(girdi, "sayı değil")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">24
+abc sayı değil</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hata-import-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="hata-import-2">
+  <header><h3>ZeroDivisionError, else, finally</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Sıfıra bölmeyi yakalayın.</p>
+  <div class="run">
+    <pre class="code"><code>def guvenli_bol(a, b):
+    try:
+        sonuc = a / b
+    except ZeroDivisionError:
+        print("Sıfıra bölünemez")
+    else:
+        print("Sonuç:", sonuc)
+    finally:
+        print("İşlem bitti")
+
+guvenli_bol(10, 2)
+guvenli_bol(1, 0)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Sonuç: 5.0
+İşlem bitti
+Sıfıra bölünemez
+İşlem bitti</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hata-import-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="hata-import-3">
+  <header><h3>raise ile kendi hatanız</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Geçersiz değerde ValueError fırlatın ve yakalayın.</p>
+  <div class="run">
+    <pre class="code"><code>def yas_kontrol(yas):
+    if yas &lt; 0:
+        raise ValueError("Yaş negatif olamaz")
+    return yas
+
+try:
+    yas_kontrol(-3)
+except ValueError as hata:
+    print("Hata:", hata)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Hata: Yaş negatif olamaz</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hata-import-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="hata-import-4">
+  <header><h3>math modülü</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Karekök, faktöriyel ve pi.</p>
+  <div class="run">
+    <pre class="code"><code>import math
+
+print(math.sqrt(16))
+print(math.factorial(5))
+print(round(math.pi, 4))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">4.0
+120
+3.1416</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hata-import-4" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="hata-import-5">
+  <header><h3>from ... import</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Bir modülden yalnızca ihtiyacınız olanı alın.</p>
+  <div class="run">
+    <pre class="code"><code>from itertools import permutations
+from statistics import mean
+
+print(list(permutations("ab")))
+print(mean([2, 4, 9]))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[('a', 'b'), ('b', 'a')]
+5</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="hata-import-5" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="hata-import" data-total="5">0 / 5 örnek</span>
+    <button class="mark" type="button" data-topic="hata-import" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#fonksiyonlar">&larr; Fonksiyonlar</a><a href="#asal-carpan">Asal çarpan bulma &rarr;</a></nav>
+</section>
+<section class="view" id="view-asal-carpan" aria-labelledby="h-asal-carpan">
+  <p class="crumb">Problem 1 / 6</p>
+  <h2 id="h-asal-carpan">Asal çarpan bulma</h2>
+  <p class="lead">Bir sayının asal çarpanlarını bulun. Notebook testleri her çarpanı yalnızca bir kez bekler: 2025 = 3⁴ · 5² için sonuç [3, 5] olmalıdır.</p>
+  <p class="needs">Zorlanırsanız önce şu temel konulara bakın: <a href="#operatorler">Operatörler</a>, <a href="#listeler">Listeler</a>, <a href="#while-dongusu">while, break ve continue</a>, <a href="#fonksiyonlar">Fonksiyonlar</a>.</p>
+  <h3 class="sub">Çözüm</h3>
+  <div class="run"><pre class="code"><code>from typing import List
+
+def prime_factors(n: int) -&gt; List[int]:
+    """n sayısının farklı asal çarpanlarını döndürür."""
+    factors = []
+    d = 2
+    while d * d &lt;= n:
+        if n % d == 0:
+            factors.append(d)
+            while n % d == 0:
+                n //= d
+        d += 1
+    if n &gt; 1:
+        factors.append(n)
+    return factors</code></pre></div>
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="asal-carpan-1">
+  <header><h3>Notebook test değerleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Kontrol fonksiyonundaki beş sayının asal çarpanlarını bulun.</p>
+  <div class="run">
+    <pre class="code"><code>for n in [75, 919191, 2025, 512, 9699690]:
+    print(f"{n} -&gt; {prime_factors(n)}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">75 -&gt; [3, 5]
+919191 -&gt; [3, 7, 13, 37]
+2025 -&gt; [3, 5]
+512 -&gt; [2]
+9699690 -&gt; [2, 3, 5, 7, 11, 13, 17, 19]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="asal-carpan-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="asal-carpan-2">
+  <header><h3>Asal sayılar ve küçük girdiler</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Asal bir sayının tek çarpanı kendisidir. 1 sayısının asal çarpanı yoktur.</p>
+  <div class="run">
+    <pre class="code"><code>for n in [1, 2, 97, 360, 1001]:
+    print(f"{n:&gt;5} -&gt; {prime_factors(n)}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">    1 -&gt; []
+    2 -&gt; [2]
+   97 -&gt; [97]
+  360 -&gt; [2, 3, 5]
+ 1001 -&gt; [7, 11, 13]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="asal-carpan-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="asal-carpan-3">
+  <header><h3>Büyük bir sayı</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">600851475143 sayısının asal çarpanlarını ve en büyüğünü bulun. √n kuralı sayesinde yalnızca birkaç yüz bin deneme yapılır.</p>
+  <div class="run">
+    <pre class="code"><code>n = 600851475143
+factors = prime_factors(n)
+print("Çarpanlar:", factors)
+print("En büyüğü:", max(factors))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Çarpanlar: [71, 839, 1471, 6857]
+En büyüğü: 6857</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="asal-carpan-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="asal-carpan-4">
+  <header><h3>Üslerle gösterim</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Bulunan çarpanların kaçar kez geçtiğini sayarak sayıyı çarpım olarak yazın.</p>
+  <div class="run">
+    <pre class="code"><code>n = 2025
+parts = []
+for p in prime_factors(n):
+    k, m = 0, n
+    while m % p == 0:
+        m //= p
+        k += 1
+    parts.append(f"{p}^{k}")
+print(f"{n} = " + " x ".join(parts))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">2025 = 3^4 x 5^2</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="asal-carpan-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="asal-carpan" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="asal-carpan" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#hata-import">&larr; Hata yakalama ve import</a><a href="#permutasyon">Permütasyon bulma &rarr;</a></nav>
+</section>
+<section class="view" id="view-permutasyon" aria-labelledby="h-permutasyon">
+  <p class="crumb">Problem 2 / 6</p>
+  <h2 id="h-permutasyon">Permütasyon bulma</h2>
+  <p class="lead">Rakamlardan oluşan bir string verildiğinde, rakamların yerleri değiştirilerek elde edilebilecek tüm dizilişleri listeleyin. Tekrarlı rakamlarda aynı yazım yalnızca bir kez yer almalıdır.</p>
+  <p class="needs">Zorlanırsanız önce şu temel konulara bakın: <a href="#string">Metin (string) işlemleri</a>, <a href="#tuple-set">Tuple ve set</a>, <a href="#comprehension">Comprehension, enumerate ve zip</a>, <a href="#hata-import">Hata yakalama ve import</a>.</p>
+  <h3 class="sub">Çözüm</h3>
+  <div class="run"><pre class="code"><code>from itertools import permutations
+from typing import List
+
+def digit_permutations(n: str) -&gt; List[str]:
+    """Rakamların tüm farklı dizilişlerini sıralı liste olarak döndürür."""
+    return sorted({"".join(p) for p in permutations(n)})</code></pre></div>
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="permutasyon-1">
+  <header><h3>Notebook test değerleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">"123", "999", "989" ve "3578" için tüm farklı dizilişleri bulun.</p>
+  <div class="run">
+    <pre class="code"><code>for n in ["123", "999", "989", "3578"]:
+    result = digit_permutations(n)
+    print(f"{n} -&gt; {len(result)} diziliş")
+    print(result)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">123 -&gt; 6 diziliş
+['123', '132', '213', '231', '312', '321']
+999 -&gt; 1 diziliş
+['999']
+989 -&gt; 3 diziliş
+['899', '989', '998']
+3578 -&gt; 24 diziliş
+['3578', '3587', '3758', '3785', '3857', '3875', '5378', '5387', '5738', '5783', '5837', '5873', '7358', '7385', '7538', '7583', '7835', '7853', '8357', '8375', '8537', '8573', '8735', '8753']</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="permutasyon-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="permutasyon-2">
+  <header><h3>Tekrarlı rakamlar</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">"112" içinde iki tane 1 vardır. 3! = 6 yerine yalnızca 3 farklı diziliş vardır.</p>
+  <div class="run">
+    <pre class="code"><code>print(digit_permutations("112"))
+print(digit_permutations("5"))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">['112', '121', '211']
+['5']</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="permutasyon-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="permutasyon-3">
+  <header><h3>Baştaki sıfır</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Girdi string olduğundan "0012" gibi sonuçlar da listede yer alır.</p>
+  <div class="run">
+    <pre class="code"><code>result = digit_permutations("1020")
+print(len(result), "diziliş")
+print(result)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">12 diziliş
+['0012', '0021', '0102', '0120', '0201', '0210', '1002', '1020', '1200', '2001', '2010', '2100']</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="permutasyon-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="permutasyon-4">
+  <header><h3>Sonuç sayısını formülle doğrulama</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">"112233" için üretilen liste uzunluğunu n! / (2! · 2! · 2!) formülüyle karşılaştırın.</p>
+  <div class="run">
+    <pre class="code"><code>from math import factorial
+from collections import Counter
+
+n = "112233"
+expected = factorial(len(n))
+for count in Counter(n).values():
+    expected //= factorial(count)
+
+print("Üretilen:", len(digit_permutations(n)))
+print("Formül  :", expected)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Üretilen: 90
+Formül  : 90</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="permutasyon-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="permutasyon" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="permutasyon" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#asal-carpan">&larr; Asal çarpan bulma</a><a href="#flatten">Liste düzleştirme &rarr;</a></nav>
+</section>
+<section class="view" id="view-flatten" aria-labelledby="h-flatten">
+  <p class="crumb">Problem 3 / 6</p>
+  <h2 id="h-flatten">Liste düzleştirme</h2>
+  <p class="lead">İç içe geçmiş listelerdeki tüm elemanları, sırasını koruyarak düz bir listeye dönüştürün. Örneğin [1, [2], [[3, 4]]] listesi [1, 2, 3, 4] olur.</p>
+  <p class="needs">Zorlanırsanız önce şu temel konulara bakın: <a href="#ic-ice-listeler">İç içe listeler</a>, <a href="#if-else">if, elif, else</a>, <a href="#for-dongusu">for döngüsü ve range</a>, <a href="#fonksiyonlar">Fonksiyonlar</a>.</p>
+  <h3 class="sub">Çözüm</h3>
+  <div class="run"><pre class="code"><code>def flatten_list(nested_list):
+    """İç içe listeyi sırayı koruyarak düz listeye çevirir."""
+    result = []
+    for item in nested_list:
+        if isinstance(item, list):
+            result.extend(flatten_list(item))
+        else:
+            result.append(item)
+    return result</code></pre></div>
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="flatten-1">
+  <header><h3>Notebook test değerleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Kontrol fonksiyonundaki dört iç içe liste yapısını düzleştirin.</p>
+  <div class="run">
+    <pre class="code"><code>cases = [
+    [1, [2, 3], [4, [5, 6]], 7],
+    [[[1, 2], 3], 4],
+    [1, [2, [3, [4]]]],
+    [[[[[]]]]],
+]
+for data in cases:
+    print(f"{data} -&gt; {flatten_list(data)}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[1, [2, 3], [4, [5, 6]], 7] -&gt; [1, 2, 3, 4, 5, 6, 7]
+[[[1, 2], 3], 4] -&gt; [1, 2, 3, 4]
+[1, [2, [3, [4]]]] -&gt; [1, 2, 3, 4]
+[[[[[]]]]] -&gt; []</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="flatten-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="flatten-2">
+  <header><h3>Metinler parçalanmaz</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Liste içindeki stringler karakterlerine ayrılmamalı, sayılarla karışık yapılar da düzleşmelidir.</p>
+  <div class="run">
+    <pre class="code"><code>data = ["a", ["bc", ["d", [2.5]]], "efg", [[], True]]
+print(flatten_list(data))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">['a', 'bc', 'd', 2.5, 'efg', True]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="flatten-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="flatten-3">
+  <header><h3>Sınıflara göre notlar</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Sınıf şubelerine göre gruplanmış notları tek listeye çevirip toplam ve ortalamayı hesaplayın.</p>
+  <div class="run">
+    <pre class="code"><code>grades = [[70, 80], [90, [60, 100]], [50]]
+flat = flatten_list(grades)
+print("Notlar  :", flat)
+print("Toplam  :", sum(flat))
+print("Ortalama:", sum(flat) / len(flat))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Notlar  : [70, 80, 90, 60, 100, 50]
+Toplam  : 450
+Ortalama: 75.0</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="flatten-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="flatten-4">
+  <header><h3>Çok derin liste ve yinelemeli çözüm</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">2000 katman derinliğindeki bir listede özyinelemeli çözüm hata verir. Yığın kullanan çözüm sorunsuz çalışır.</p>
+  <div class="run">
+    <pre class="code"><code>def flatten_iterative(nested_list):
+    stack = list(reversed(nested_list))
+    result = []
+    while stack:
+        item = stack.pop()
+        if isinstance(item, list):
+            stack.extend(reversed(item))
+        else:
+            result.append(item)
+    return result
+
+deep = 0
+for i in range(1, 2001):
+    deep = [i, deep]
+
+try:
+    flatten_list(deep)
+except RecursionError:
+    print("Özyinelemeli: RecursionError")
+
+result = flatten_iterative(deep)
+print("Yinelemeli  :", len(result), "eleman, ilk üçü", result[:3])</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Özyinelemeli: RecursionError
+Yinelemeli  : 2001 eleman, ilk üçü [2000, 1999, 1998]</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="flatten-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="flatten" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="flatten" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#permutasyon">&larr; Permütasyon bulma</a><a href="#ortalama-liste">Verilen ortalamada liste oluşturma &rarr;</a></nav>
+</section>
+<section class="view" id="view-ortalama-liste" aria-labelledby="h-ortalama-liste">
+  <p class="crumb">Problem 4 / 6</p>
+  <h2 id="h-ortalama-liste">Verilen ortalamada liste oluşturma</h2>
+  <p class="lead">Eleman sayısı n, hedef ortalama ve açıklık (max − min) verilen bir liste üretin. Tek bir doğru yanıt yoktur; üç koşulu sağlayan her liste geçerlidir.</p>
+  <p class="needs">Zorlanırsanız önce şu temel konulara bakın: <a href="#listeler">Listeler</a>, <a href="#fonksiyonlar">Fonksiyonlar</a>, <a href="#hata-import">Hata yakalama ve import</a>.</p>
+  <h3 class="sub">Çözüm</h3>
+  <div class="run"><pre class="code"><code>def generate_mean_list(n, mean, range_width):
+    """n elemanlı, ortalaması mean, açıklığı range_width olan bir liste üretir."""
+    if n &lt; 1:
+        raise ValueError("n en az 1 olmalı")
+    if range_width &lt; 0:
+        raise ValueError("açıklık negatif olamaz")
+    if n == 1:
+        if range_width != 0:
+            raise ValueError("Tek elemanlı listenin açıklığı 0 olmalı")
+        return [mean]
+    half = range_width / 2
+    return [mean - half, mean + half] + [mean] * (n - 2)</code></pre></div>
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="ortalama-liste-1">
+  <header><h3>Notebook test değerleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">(10, 50, 25), (5, 0, 0) ve (100, 55, 100) için üretilen listelerin uzunluk, ortalama ve açıklığını kontrol edin.</p>
+  <div class="run">
+    <pre class="code"><code>from statistics import fmean
+
+for n, mean, r in [(10, 50, 25), (5, 0, 0), (100, 55, 100)]:
+    values = generate_mean_list(n, mean, r)
+    print(f"n={n}: uzunluk={len(values)}, ortalama={fmean(values)}, açıklık={max(values) - min(values)}")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">n=10: uzunluk=10, ortalama=50.0, açıklık=25.0
+n=5: uzunluk=5, ortalama=0.0, açıklık=0.0
+n=100: uzunluk=100, ortalama=55.0, açıklık=100.0</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ortalama-liste-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="ortalama-liste-2">
+  <header><h3>Küçük bir liste</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">4 elemanlı, ortalaması 10 ve açıklığı 6 olan bir liste üretin.</p>
+  <div class="run">
+    <pre class="code"><code>values = generate_mean_list(4, 10, 6)
+print(values)
+print("Ortalama:", sum(values) / len(values))
+print("Açıklık :", max(values) - min(values))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[7.0, 13.0, 10, 10]
+Ortalama: 10.0
+Açıklık : 6.0</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ortalama-liste-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="ortalama-liste-3">
+  <header><h3>Negatif ve ondalıklı ortalama</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">6 elemanlı, ortalaması -2.5 ve açıklığı 9 olan bir liste üretin; sonucu math.isclose ile doğrulayın.</p>
+  <div class="run">
+    <pre class="code"><code>from math import isclose
+
+values = generate_mean_list(6, -2.5, 9)
+print(values)
+print(isclose(sum(values) / 6, -2.5), isclose(max(values) - min(values), 9))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[-7.0, 2.0, -2.5, -2.5, -2.5, -2.5]
+True True</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ortalama-liste-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="ortalama-liste-4">
+  <header><h3>Sınır durumları</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Tek elemanlı bir listede açıklık yalnızca 0 olabilir. Mümkün olmayan istek hata verir.</p>
+  <div class="run">
+    <pre class="code"><code>print(generate_mean_list(1, 7, 0))
+
+try:
+    generate_mean_list(1, 7, 3)
+except ValueError as error:
+    print("Hata:", error)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[7]
+Hata: Tek elemanlı listenin açıklığı 0 olmalı</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="ortalama-liste-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="ortalama-liste" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="ortalama-liste" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#flatten">&larr; Liste düzleştirme</a><a href="#sinif-ortalamasi">Sınıf ortalaması hesaplama &rarr;</a></nav>
+</section>
+<section class="view" id="view-sinif-ortalamasi" aria-labelledby="h-sinif-ortalamasi">
+  <p class="crumb">Problem 5 / 6</p>
+  <h2 id="h-sinif-ortalamasi">Sınıf ortalaması hesaplama</h2>
+  <p class="lead">Not listesinden geçersiz değerleri ve aykırı uçları ayıklayarak "stabil ortalamayı" hesaplayın.</p>
+  <p class="needs">Zorlanırsanız önce şu temel konulara bakın: <a href="#listeler">Listeler</a>, <a href="#comprehension">Comprehension, enumerate ve zip</a>, <a href="#if-else">if, elif, else</a>, <a href="#hata-import">Hata yakalama ve import</a>.</p>
+  <h3 class="sub">Çözüm</h3>
+  <div class="run"><pre class="code"><code>from statistics import mean, pstdev
+
+def calculate_mean(l: list[int]) -&gt; float:
+    """Geçersiz ve aykırı notlar dışarıda bırakılarak stabil ortalamayı döndürür."""
+    valid = [x for x in l if 0 &lt;= x &lt;= 100]
+    if not valid:
+        return 0.0
+    m, s = mean(valid), pstdev(valid)
+    stable = [x for x in valid if m - s &lt;= x &lt;= m + s]
+    return float(mean(stable))</code></pre></div>
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="sinif-ortalamasi-1">
+  <header><h3>Notebook test değerleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Kontrol fonksiyonundaki beş not listesini ve beklenen ortalamaları karşılaştırın.</p>
+  <div class="run">
+    <pre class="code"><code>cases = [
+    ([40, 50, 60, 55, 45], 50.0),
+    ([10, 20, -5, 105, 30], 20.0),
+    ([50, 52, 48, 49, 100], 49.75),
+    ([80, 85, 82, 84, 10], 82.75),
+    ([70, 72, 68, 69, 0], 69.75),
+]
+for grades, expected in cases:
+    print(f"{grades} -&gt; {calculate_mean(grades)} (beklenen {expected})")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">[40, 50, 60, 55, 45] -&gt; 50.0 (beklenen 50.0)
+[10, 20, -5, 105, 30] -&gt; 20.0 (beklenen 20.0)
+[50, 52, 48, 49, 100] -&gt; 49.75 (beklenen 49.75)
+[80, 85, 82, 84, 10] -&gt; 82.75 (beklenen 82.75)
+[70, 72, 68, 69, 0] -&gt; 69.75 (beklenen 69.75)</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sinif-ortalamasi-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sinif-ortalamasi-2">
+  <header><h3>Adım adım hesaplama</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">[90, 92, 88, 91, 30, 150] listesinde her aşamayı yazdırın. 150 geçersizdir, 30 ise aykırı değerdir.</p>
+  <div class="run">
+    <pre class="code"><code>from statistics import mean, pstdev
+
+grades = [90, 92, 88, 91, 30, 150]
+valid = [x for x in grades if 0 &lt;= x &lt;= 100]
+m, s = mean(valid), pstdev(valid)
+stable = [x for x in valid if m - s &lt;= x &lt;= m + s]
+
+print("Geçerli notlar:", valid)
+print(f"Ortalama={m:.2f}, sapma={s:.2f}")
+print(f"Kabul aralığı: [{m - s:.2f}, {m + s:.2f}]")
+print("Kalan notlar  :", stable)
+print("Stabil ortalama:", calculate_mean(grades))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">Geçerli notlar: [90, 92, 88, 91, 30]
+Ortalama=78.20, sapma=24.14
+Kabul aralığı: [54.06, 102.34]
+Kalan notlar  : [90, 92, 88, 91]
+Stabil ortalama: 90.25</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sinif-ortalamasi-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sinif-ortalamasi-3">
+  <header><h3>Hiç geçerli not yok</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Tüm notlar aralık dışındaysa fonksiyon 0.0 döndürmelidir. Boş liste için de aynısı geçerlidir.</p>
+  <div class="run">
+    <pre class="code"><code>print(calculate_mean([-3, 120, 101]))
+print(calculate_mean([]))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">0.0
+0.0</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sinif-ortalamasi-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="sinif-ortalamasi-4">
+  <header><h3>Sınır durumları</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Tüm notlar eşitse sapma 0'dır ve hiçbir not elenmez. 0 ve 100 geçerli uç değerlerdir.</p>
+  <div class="run">
+    <pre class="code"><code>print(calculate_mean([60, 60, 60, 60]))
+print(calculate_mean([0, 100]))
+print(calculate_mean([0, 100, 50, 51, 49]))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">60.0
+50.0
+50.0</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="sinif-ortalamasi-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="sinif-ortalamasi" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="sinif-ortalamasi" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#ortalama-liste">&larr; Verilen ortalamada liste oluşturma</a><a href="#zaman-farki">Zaman farkı &rarr;</a></nav>
+</section>
+<section class="view" id="view-zaman-farki" aria-labelledby="h-zaman-farki">
+  <p class="crumb">Problem 6 / 6</p>
+  <h2 id="h-zaman-farki">Zaman farkı</h2>
+  <p class="lead">Saat ve dakika olarak verilen iki zaman arasındaki süreyi (örneğin 08:30 ve 17:15) dakika cinsinden hesaplayın. Notebook açıklaması "mutlak değer" der, ancak testler (23:50 → 00:20 = 30, 18:00 → 07:00 = 780) time1'den time2'ye ileri doğru geçen süreyi bekler; time2 daha erkense gece yarısı geçilmiş sayılır.</p>
+  <p class="needs">Zorlanırsanız önce şu temel konulara bakın: <a href="#string">Metin (string) işlemleri</a>, <a href="#operatorler">Operatörler</a>, <a href="#fonksiyonlar">Fonksiyonlar</a>.</p>
+  <h3 class="sub">Çözüm</h3>
+  <div class="run"><pre class="code"><code>def time_diff(time1: str, time2: str) -&gt; int:
+    """time1'den time2'ye ileri doğru geçen dakika (gece yarısını aşabilir)."""
+    h1, m1 = map(int, time1.split(":"))
+    h2, m2 = map(int, time2.split(":"))
+    return ((h2 * 60 + m2) - (h1 * 60 + m1)) % 1440</code></pre></div>
+  <h3 class="sub">Örnekler</h3>
+  <article class="example" data-ex="zaman-farki-1">
+  <header><h3>Notebook test değerleri</h3><span class="tag tag-nb">Notebook örneği</span></header>
+  <p class="problem">Kontrol fonksiyonundaki beş saat çiftini hesaplayın.</p>
+  <div class="run">
+    <pre class="code"><code>pairs = [("08:30", "17:15"), ("12:00", "12:30"), ("23:50", "00:20"),
+         ("09:15", "09:15"), ("18:00", "07:00")]
+for a, b in pairs:
+    print(f"{a} -&gt; {b}: {time_diff(a, b)} dk")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">08:30 -&gt; 17:15: 525 dk
+12:00 -&gt; 12:30: 30 dk
+23:50 -&gt; 00:20: 30 dk
+09:15 -&gt; 09:15: 0 dk
+18:00 -&gt; 07:00: 780 dk</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="zaman-farki-1" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="zaman-farki-2">
+  <header><h3>Gece yarısını aşan süreler</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Geceye uzanan süreler ve günün en uzun aralığı.</p>
+  <div class="run">
+    <pre class="code"><code>print(time_diff("22:10", "01:40"))
+print(time_diff("00:00", "23:59"))
+print(time_diff("06:00", "06:01"))</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">210
+1439
+1</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="zaman-farki-2" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="zaman-farki-3">
+  <header><h3>Yön önemlidir</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Saatlerin sırası değişince sonuç da değişir. İki yönün toplamı her zaman 1440 dakikadır (aynı saat hariç).</p>
+  <div class="run">
+    <pre class="code"><code>forward = time_diff("08:30", "17:15")
+backward = time_diff("17:15", "08:30")
+print(forward, backward, forward + backward)</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">525 915 1440</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="zaman-farki-3" aria-pressed="false">Örneği tamamladım</button>
+</article><article class="example" data-ex="zaman-farki-4">
+  <header><h3>Vardiya süreleri</h3><span class="tag tag-new">Yeni örnek</span></header>
+  <p class="problem">Üç vardiyanın süresini saat ve dakika olarak yazdırın. Toplamları bir günü verir.</p>
+  <div class="run">
+    <pre class="code"><code>shifts = [("06:00", "14:00"), ("14:00", "22:00"), ("22:00", "06:00")]
+total = 0
+for start, end in shifts:
+    minutes = time_diff(start, end)
+    hours, rest = divmod(minutes, 60)
+    total += minutes
+    print(f"{start}-{end}: {hours} sa {rest} dk")
+print("Toplam:", total, "dk")</code></pre>
+    <div class="output">
+      <div class="output-head">
+        <span class="output-label">Çıktı</span>
+        <button class="reveal" type="button" aria-expanded="false">Cevabı göster</button>
+      </div>
+      <p class="out-placeholder">Çıktıyı görmek için &ldquo;Cevabı göster&rdquo; düğmesine basın.</p>
+      <pre class="out-body">06:00-14:00: 8 sa 0 dk
+14:00-22:00: 8 sa 0 dk
+22:00-06:00: 8 sa 0 dk
+Toplam: 1440 dk</pre>
+    </div>
+  </div>
+  <button class="ex-mark" type="button" data-ex="zaman-farki-4" aria-pressed="false">Örneği tamamladım</button>
+</article>
+  <div class="topic-bar">
+    <span class="topic-count" data-count="zaman-farki" data-total="4">0 / 4 örnek</span>
+    <button class="mark" type="button" data-topic="zaman-farki" aria-pressed="false">Konuyu tamamlandı olarak işaretle</button>
+  </div>
+  <nav class="pager" aria-label="Konu gezinme"><a href="#sinif-ortalamasi">&larr; Sınıf ortalaması hesaplama</a><span></span></nav>
+</section>
+  
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
